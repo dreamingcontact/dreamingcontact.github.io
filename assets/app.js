@@ -61,12 +61,12 @@
     if (oursPill) oursPill.textContent = `${t.success.ours} / ${t.success.total} ours`;
     if (basePill) basePill.textContent = `${t.success.base} / ${t.success.total} base`;
     if (audioPlot) {
-      audioPlot.src = `figs/${currentTask}_audio.png`;
-      audioPlot.alt = `Audio loudness over time — ${t.label}.`;
+      audioPlot.src = `figs/${currentTask}_run${currentRun}_audio.png?v=${MEDIA_REV}`;
+      audioPlot.alt = `Audio loudness over time — ${t.label}, run ${currentRun}.`;
     }
     if (forcePlot) {
-      forcePlot.src = `figs/${currentTask}_force.png`;
-      forcePlot.alt = `Measured contact force over time — ${t.label}.`;
+      forcePlot.src = `figs/${currentTask}_run${currentRun}_force.png?v=${MEDIA_REV}`;
+      forcePlot.alt = `Measured contact force over time — ${t.label}, run ${currentRun}.`;
     }
   }
 
