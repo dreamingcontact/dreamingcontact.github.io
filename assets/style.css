@@ -520,21 +520,18 @@ code, pre, .mono {
 .vlabel--base { color: #b0325a; }
 .vdesc { font-size: 12px; color: var(--ink-muted); }
 
-/* Overlay plot: supporting evidence, not the main character. */
-.explorer__plot {
-  margin: 0;
+/* Overlay plot: attached beneath the Ours video (only ours regulates force). */
+.ours-plot {
   display: flex; flex-direction: column; gap: 4px;
-  padding: 0;
-  max-width: 520px;
-  background: none; border: none;
+  margin-top: 2px;
 }
-.explorer__plot img {
+.ours-plot img {
   width: 100%; height: auto; display: block;
   border-radius: var(--radius-xs);
   background: #fff;
-  border: 1px solid rgba(26,20,32,.06);
+  border: 1px solid rgba(26,20,32,.08);
 }
-.explorer__plot figcaption { font-size: 11px; color: var(--ink-muted); }
+.ours-plot__caption { font-size: 10.5px; margin: 0; }
 
 @media (max-width: 780px) {
   .explorer__videos { grid-template-columns: 1fr; }
