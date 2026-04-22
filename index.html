@@ -147,14 +147,6 @@
       </div>
 
       <div class="explorer__bar">
-        <div class="pick-prompt">
-          <span class="pick-prompt__text">Start here, pick a task</span>
-          <svg class="pick-prompt__arrow" viewBox="0 0 48 24" width="48" height="24" aria-hidden="true">
-            <path d="M2 12 C 16 12, 28 12, 40 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 4"/>
-            <polyline points="34,6 42,12 34,18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-
         <div class="explorer__meta">
           <label class="run-select run-select--task">
             <span>Task</span>
@@ -164,6 +156,15 @@
               <option value="lamp">Lamp button</option>
             </select>
           </label>
+
+          <div class="pick-prompt">
+            <svg class="pick-prompt__arrow" viewBox="0 0 48 24" width="48" height="24" aria-hidden="true">
+              <polyline points="14,6 6,12 14,18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 12 C 20 12, 32 12, 46 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 4"/>
+            </svg>
+            <span class="pick-prompt__text">choose a task</span>
+          </div>
+
           <label class="run-select">
             <span>Run</span>
             <select id="run-dropdown" aria-label="Select run">
