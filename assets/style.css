@@ -426,32 +426,27 @@ code, pre, .mono {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
   gap: 12px; padding: 6px 0 2px;
 }
-.tabs {
-  display: inline-flex; gap: 0;
-  background: rgba(255,255,255,.6);
-  border: 1px solid rgba(26,20,32,.1);
-  border-radius: 12px;
-  padding: 4px;
-  flex-wrap: wrap;
-}
-.tab {
+/* Prompt pointing at the task dropdown ("Start here, pick a task →") */
+.pick-prompt {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 7px 14px;
-  border-radius: 8px;
-  border: none;
-  background: transparent;
-  color: var(--ink-muted);
-  font-size: 13px; font-weight: 600;
-  cursor: pointer;
-  transition: background .2s ease, color .2s ease;
+  color: var(--accent);
+  font-size: 13px; font-weight: 700;
+  font-style: italic;
+  letter-spacing: .01em;
 }
-.tab:hover { color: var(--ink); }
-.tab.is-active {
-  background: var(--ink);
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(26,20,32,.18);
+.pick-prompt__arrow {
+  color: currentColor;
+  animation: arrow-nudge 1.6s ease-in-out infinite;
 }
-.tab svg { stroke-width: 2; }
+@keyframes arrow-nudge {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(6px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pick-prompt__arrow { animation: none; }
+}
+.run-select--task { min-width: 180px; }
+.run-select--task select { font-weight: 700; }
 
 .explorer__meta { display: inline-flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 .run-select {

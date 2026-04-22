@@ -147,22 +147,23 @@
       </div>
 
       <div class="explorer__bar">
-        <div class="tabs" role="tablist" aria-label="Select task">
-          <button class="tab is-active" data-task="whiteboard" role="tab" aria-selected="true">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8 Q 8 6, 13 8 T 21 8"/><path d="M3 13 Q 8 11, 13 13 T 21 13" opacity=".7"/><path d="M3 18 Q 8 16, 13 18 T 21 18" opacity=".4"/></svg>
-            Whiteboard wiping
-          </button>
-          <button class="tab" data-task="carrot" role="tab" aria-selected="false">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19 L13 6 L17 10 Z"/><path d="M17 5 Q 20 2, 22 5"/><path d="M8 13 Q 4 14, 3 18" opacity=".6"/></svg>
-            Carrot peeling
-          </button>
-          <button class="tab" data-task="lamp" role="tab" aria-selected="false">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3 C 7 3, 6 10, 10 13 L10 16 H14 V13 C 18 10, 17 3, 12 3Z"/><line x1="10" y1="18" x2="14" y2="18"/><line x1="11" y1="20" x2="13" y2="20"/></svg>
-            Lamp button
-          </button>
+        <div class="pick-prompt">
+          <span class="pick-prompt__text">Start here, pick a task</span>
+          <svg class="pick-prompt__arrow" viewBox="0 0 48 24" width="48" height="24" aria-hidden="true">
+            <path d="M2 12 C 16 12, 28 12, 40 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 4"/>
+            <polyline points="34,6 42,12 34,18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </div>
 
         <div class="explorer__meta">
+          <label class="run-select run-select--task">
+            <span>Task</span>
+            <select id="task-dropdown" aria-label="Select task">
+              <option value="whiteboard">Whiteboard wiping</option>
+              <option value="carrot">Carrot peeling</option>
+              <option value="lamp">Lamp button</option>
+            </select>
+          </label>
           <label class="run-select">
             <span>Run</span>
             <select id="run-dropdown" aria-label="Select run">

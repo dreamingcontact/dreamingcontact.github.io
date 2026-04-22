@@ -28,7 +28,7 @@
     lamp:       { label: 'Lamp button',       success: { ours: 4, base: 0, total: 6 }, plot: 'figs/lamp_overlay.png' }
   };
 
-  const tabs       = document.querySelectorAll('.tab[data-task]');
+  const taskSelect = document.getElementById('task-dropdown');
   const runSelect  = document.getElementById('run-dropdown');
   const oursPill   = document.getElementById('score-ours');
   const basePill   = document.getElementById('score-base');
@@ -62,15 +62,12 @@
     }
   }
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => { t.classList.remove('is-active'); t.setAttribute('aria-selected', 'false'); });
-      tab.classList.add('is-active');
-      tab.setAttribute('aria-selected', 'true');
-      currentTask = tab.dataset.task;
+  if (taskSelect) {
+    taskSelect.addEventListener('change', () => {
+      currentTask = taskSelect.value;
       paintExplorer();
     });
-  });
+  }
   if (runSelect) {
     runSelect.addEventListener('change', () => {
       currentRun = parseInt(runSelect.value, 10) || 1;
