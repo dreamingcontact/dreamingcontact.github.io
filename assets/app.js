@@ -23,16 +23,17 @@
 
   // --- Video explorer: task tabs + run dropdown swap video sources ---
   const TASKS = {
-    whiteboard: { label: 'Whiteboard wiping', success: { ours: 6, base: 0, total: 6 }, plot: 'figs/whiteboard_overlay.png' },
-    carrot:     { label: 'Carrot peeling',    success: { ours: 5, base: 1, total: 6 }, plot: 'figs/carrot_overlay.png' },
-    lamp:       { label: 'Lamp button',       success: { ours: 4, base: 0, total: 6 }, plot: 'figs/lamp_overlay.png' }
+    whiteboard: { label: 'Whiteboard wiping', success: { ours: 6, base: 0, total: 6 } },
+    carrot:     { label: 'Carrot peeling',    success: { ours: 5, base: 1, total: 6 } },
+    lamp:       { label: 'Lamp button',       success: { ours: 4, base: 0, total: 6 } }
   };
 
   const taskSelect = document.getElementById('task-dropdown');
   const runSelect  = document.getElementById('run-dropdown');
   const oursPill   = document.getElementById('score-ours');
   const basePill   = document.getElementById('score-base');
-  const plotEl     = document.getElementById('overlay-plot');
+  const audioPlot  = document.getElementById('audio-plot');
+  const forcePlot  = document.getElementById('force-plot');
   const vidKinds   = ['gen', 'ours', 'base'];
   const exVideos   = Object.fromEntries(vidKinds.map(k => [k, document.getElementById('v-' + k)]));
 
@@ -56,9 +57,13 @@
     });
     if (oursPill) oursPill.textContent = `${t.success.ours} / ${t.success.total} ours`;
     if (basePill) basePill.textContent = `${t.success.base} / ${t.success.total} base`;
-    if (plotEl) {
-      plotEl.src = t.plot;
-      plotEl.alt = `Audio loudness vs measured contact force — ${t.label}`;
+    if (audioPlot) {
+      audioPlot.src = `figs/${currentTask}_audio.png`;
+      audioPlot.alt = `Audio loudness over time — ${t.label}.`;
+    }
+    if (forcePlot) {
+      forcePlot.src = `figs/${currentTask}_force.png`;
+      forcePlot.alt = `Measured contact force over time — ${t.label}.`;
     }
   }
 
