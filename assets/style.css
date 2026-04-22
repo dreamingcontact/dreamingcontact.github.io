@@ -448,7 +448,8 @@ code, pre, .mono {
 .run-select--task { min-width: 180px; }
 .run-select--task select { font-weight: 700; }
 
-.explorer__meta { display: inline-flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.explorer__meta,
+.explorer__right { display: inline-flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 .run-select {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 7px 8px 7px 14px;
