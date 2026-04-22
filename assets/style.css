@@ -508,6 +508,23 @@ code, pre, .mono {
   object-fit: cover;
   box-shadow: 0 8px 28px rgba(26,20,32,.12);
 }
+.video-wrap { position: relative; }
+.video-badge {
+  position: absolute;
+  right: 10px; bottom: 34px;   /* sit above the native controls bar */
+  z-index: 2;
+  padding: 3px 9px;
+  border-radius: 8px;
+  background: rgba(26,20,32,.78);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  pointer-events: none;
+  font-variant-numeric: tabular-nums;
+}
 /* Video labels — flat colored text with a left accent bar, not pills. */
 .vlabel {
   display: inline-flex; align-items: center; gap: 6px;

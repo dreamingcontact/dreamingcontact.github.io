@@ -205,10 +205,13 @@
             <span class="vlabel vlabel--ours">Ours · force-aware</span>
             <span class="vdesc">Franka arm tracks the audio-derived force profile</span>
           </figcaption>
-          <video id="v-ours" data-kind="ours"
-                 src="videos/whiteboard_run1_ours.mp4?v=2"
-                 poster="videos/whiteboard_run1_ours.jpg?v=2"
-                 loop playsinline preload="metadata" controls muted></video>
+          <div class="video-wrap">
+            <video id="v-ours" data-kind="ours"
+                   src="videos/whiteboard_run1_ours.mp4?v=2"
+                   poster="videos/whiteboard_run1_ours.jpg?v=2"
+                   loop playsinline preload="metadata" controls muted></video>
+            <span class="video-badge">2×</span>
+          </div>
           <div class="ours-plot">
             <img id="force-plot" src="figs/whiteboard_force.png"
                  alt="Measured contact force over time — whiteboard." />
@@ -219,10 +222,13 @@
             <span class="vlabel vlabel--base">Baseline · kinematic</span>
             <span class="vdesc">Same trajectory, no force regulation</span>
           </figcaption>
-          <video id="v-base" data-kind="base"
-                 src="videos/whiteboard_run1_base.mp4?v=2"
-                 poster="videos/whiteboard_run1_base.jpg?v=2"
-                 loop playsinline preload="metadata" controls muted></video>
+          <div class="video-wrap">
+            <video id="v-base" data-kind="base"
+                   src="videos/whiteboard_run1_base.mp4?v=2"
+                   poster="videos/whiteboard_run1_base.jpg?v=2"
+                   loop playsinline preload="metadata" controls muted></video>
+            <span class="video-badge">2×</span>
+          </div>
         </figure>
       </div>
 
