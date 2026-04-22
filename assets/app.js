@@ -37,6 +37,8 @@
   const vidKinds   = ['gen', 'ours', 'base'];
   const exVideos   = Object.fromEntries(vidKinds.map(k => [k, document.getElementById('v-' + k)]));
 
+  // Bump MEDIA_REV whenever videos or posters are rebuilt so caches invalidate.
+  const MEDIA_REV = '2';
   let currentTask = 'whiteboard';
   let currentRun  = 1;
 
@@ -45,8 +47,8 @@
     vidKinds.forEach(kind => {
       const el = exVideos[kind];
       if (!el) return;
-      const src = `videos/${currentTask}_run${currentRun}_${kind}.mp4`;
-      const poster = `videos/${currentTask}_run${currentRun}_${kind}.jpg`;
+      const src    = `videos/${currentTask}_run${currentRun}_${kind}.mp4?v=${MEDIA_REV}`;
+      const poster = `videos/${currentTask}_run${currentRun}_${kind}.jpg?v=${MEDIA_REV}`;
       if (el.getAttribute('src') !== src) {
         el.pause();
         el.setAttribute('poster', poster);
