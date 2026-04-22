@@ -5,8 +5,6 @@
   const mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   const mqTouch  = window.matchMedia('(pointer: coarse)');
 
-  const videos = Array.from(document.querySelectorAll('video'));
-
   // --- scroll-reveal (fade-in on first entry) ------------
   if (!mqReduce.matches && 'IntersectionObserver' in window) {
     const reveals = Array.from(document.querySelectorAll('.reveal'));
@@ -23,26 +21,97 @@
     document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
   }
 
-  // --- in-viewport autoplay ------------------------------
-  if (!mqReduce.matches && 'IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(({ target, isIntersecting, intersectionRatio }) => {
-        if (isIntersecting && intersectionRatio >= 0.5) {
-          target.play().catch(() => { /* autoplay blocked; leave poster */ });
-        } else {
-          target.pause();
-        }
-      });
-    }, { threshold: [0, 0.5, 1] });
-    videos.forEach(v => io.observe(v));
+  // --- Video explorer: task tabs + run dropdown swap video sources ---
+  const TASKS = {
+    whiteboard: { label: 'Whiteboard wiping', success: { ours: 6, base: 0, total: 6 }, plot: 'figs/whiteboard_overlay.png' },
+    carrot:     { label: 'Carrot peeling',    success: { ours: 5, base: 1, total: 6 }, plot: 'figs/carrot_overlay.png' },
+    lamp:       { label: 'Lamp button',       success: { ours: 4, base: 0, total: 6 }, plot: 'figs/lamp_overlay.png' }
+  };
+
+  const tabs       = document.querySelectorAll('.tab[data-task]');
+  const runSelect  = document.getElementById('run-dropdown');
+  const oursPill   = document.getElementById('score-ours');
+  const basePill   = document.getElementById('score-base');
+  const plotEl     = document.getElementById('overlay-plot');
+  const vidKinds   = ['gen', 'ours', 'base'];
+  const exVideos   = Object.fromEntries(vidKinds.map(k => [k, document.getElementById('v-' + k)]));
+
+  let currentTask = 'whiteboard';
+  let currentRun  = 1;
+
+  function paintExplorer() {
+    const t = TASKS[currentTask];
+    vidKinds.forEach(kind => {
+      const el = exVideos[kind];
+      if (!el) return;
+      const src = `videos/${currentTask}_run${currentRun}_${kind}.mp4`;
+      const poster = `videos/${currentTask}_run${currentRun}_${kind}.jpg`;
+      if (el.getAttribute('src') !== src) {
+        el.pause();
+        el.setAttribute('poster', poster);
+        el.setAttribute('src', src);
+        el.load();
+        el.muted = true;
+      }
+    });
+    if (oursPill) oursPill.textContent = `${t.success.ours} / ${t.success.total} ours`;
+    if (basePill) basePill.textContent = `${t.success.base} / ${t.success.total} base`;
+    if (plotEl) {
+      plotEl.src = t.plot;
+      plotEl.alt = `Audio loudness vs measured contact force — ${t.label}`;
+    }
   }
 
-  // --- hover autoplay (desktop pointers only) ------------
-  if (!mqReduce.matches && !mqTouch.matches) {
-    videos.forEach(v => {
-      v.addEventListener('mouseenter', () => { v.play().catch(() => {}); });
-      v.addEventListener('mouseleave', () => { v.pause(); });
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => { t.classList.remove('is-active'); t.setAttribute('aria-selected', 'false'); });
+      tab.classList.add('is-active');
+      tab.setAttribute('aria-selected', 'true');
+      currentTask = tab.dataset.task;
+      paintExplorer();
     });
+  });
+  if (runSelect) {
+    runSelect.addEventListener('change', () => {
+      currentRun = parseInt(runSelect.value, 10) || 1;
+      paintExplorer();
+    });
+  }
+
+  // Explorer videos all loop muted in parallel so the user sees the
+  // comparison side-by-side. When the user unmutes one, re-mute the others
+  // so the contact audio is clearly attributable to a single clip.
+  Object.values(exVideos).forEach(el => {
+    if (!el) return;
+    el.addEventListener('volumechange', () => {
+      if (!el.muted) {
+        Object.values(exVideos).forEach(other => {
+          if (other && other !== el) other.muted = true;
+        });
+      }
+    });
+  });
+
+  // Autoplay explorer videos (muted) when the explorer section is in view.
+  if (!mqReduce.matches && 'IntersectionObserver' in window) {
+    const explorerSec = document.getElementById('results');
+    if (explorerSec) {
+      const vo = new IntersectionObserver((entries) => {
+        entries.forEach(({ isIntersecting, intersectionRatio }) => {
+          const shouldPlay = isIntersecting && intersectionRatio >= 0.3;
+          Object.values(exVideos).forEach(el => {
+            if (!el) return;
+            if (shouldPlay) {
+              // Don't restart a video already playing with sound
+              if (el.paused && el.muted) el.play().catch(() => {});
+            } else {
+              el.pause();
+            }
+          });
+        });
+      }, { threshold: [0, 0.3, 0.6] });
+      vo.observe(explorerSec);
+    }
   }
 
   // --- copy bibtex ---------------------------------------

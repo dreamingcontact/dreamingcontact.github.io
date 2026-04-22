@@ -135,7 +135,93 @@
       </div>
     </section>
 
-    <!-- 2. ABSTRACT (editorial) ============================== -->
+    <!-- 2. VIDEO EXPLORER (experiments, upfront) ============= -->
+    <section class="explorer section section--divided reveal" id="results">
+      <div class="explorer__head">
+        <p class="kicker">Experiments</p>
+        <h2>Three tasks. Six runs each. Audio as the force signal.</h2>
+        <p class="muted">
+          Pick a task and a run. Each row plays the <strong>generated</strong> reference video + audio (the prompt), our <strong>force-aware</strong> execution on a Franka arm that tracks the audio-derived force profile, and a <strong>kinematic-only baseline</strong> for comparison.
+          <span class="sound-hint"><span class="sound-hint__icon" aria-hidden="true">🔊</span>Turn the sound on — the contact audio <em>is</em> the force signal.</span>
+        </p>
+      </div>
+
+      <div class="explorer__bar">
+        <div class="tabs" role="tablist" aria-label="Select task">
+          <button class="tab is-active" data-task="whiteboard" role="tab" aria-selected="true">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8 Q 8 6, 13 8 T 21 8"/><path d="M3 13 Q 8 11, 13 13 T 21 13" opacity=".7"/><path d="M3 18 Q 8 16, 13 18 T 21 18" opacity=".4"/></svg>
+            Whiteboard wiping
+          </button>
+          <button class="tab" data-task="carrot" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19 L13 6 L17 10 Z"/><path d="M17 5 Q 20 2, 22 5"/><path d="M8 13 Q 4 14, 3 18" opacity=".6"/></svg>
+            Carrot peeling
+          </button>
+          <button class="tab" data-task="lamp" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3 C 7 3, 6 10, 10 13 L10 16 H14 V13 C 18 10, 17 3, 12 3Z"/><line x1="10" y1="18" x2="14" y2="18"/><line x1="11" y1="20" x2="13" y2="20"/></svg>
+            Lamp button
+          </button>
+        </div>
+
+        <div class="explorer__meta">
+          <label class="run-select">
+            <span>Run</span>
+            <select id="run-dropdown" aria-label="Select run">
+              <option value="1">1 of 6</option>
+              <option value="2">2 of 6</option>
+              <option value="3">3 of 6</option>
+              <option value="4">4 of 6</option>
+              <option value="5">5 of 6</option>
+              <option value="6">6 of 6</option>
+            </select>
+          </label>
+          <span class="score-readout" id="score-readout">
+            <span class="score__pill score__pill--ours num" id="score-ours">6 / 6 ours</span>
+            <span class="score__pill score__pill--base num" id="score-base">0 / 6 base</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="explorer__videos">
+        <figure class="explorer__video">
+          <figcaption>
+            <span class="vlabel vlabel--gen">Generated</span>
+            <span class="vdesc">Video + audio from the generator — the prompt</span>
+          </figcaption>
+          <video id="v-gen" data-kind="gen"
+                 src="videos/whiteboard_run1_gen.mp4"
+                 poster="videos/whiteboard_run1_gen.jpg"
+                 loop playsinline preload="metadata" controls muted></video>
+        </figure>
+        <figure class="explorer__video">
+          <figcaption>
+            <span class="vlabel vlabel--ours">Ours · force-aware</span>
+            <span class="vdesc">Franka arm tracks the audio-derived force profile</span>
+          </figcaption>
+          <video id="v-ours" data-kind="ours"
+                 src="videos/whiteboard_run1_ours.mp4"
+                 poster="videos/whiteboard_run1_ours.jpg"
+                 loop playsinline preload="metadata" controls muted></video>
+        </figure>
+        <figure class="explorer__video">
+          <figcaption>
+            <span class="vlabel vlabel--base">Baseline · kinematic</span>
+            <span class="vdesc">Same trajectory, no force regulation</span>
+          </figcaption>
+          <video id="v-base" data-kind="base"
+                 src="videos/whiteboard_run1_base.mp4"
+                 poster="videos/whiteboard_run1_base.jpg"
+                 loop playsinline preload="metadata" controls muted></video>
+        </figure>
+      </div>
+
+      <figure class="explorer__plot">
+        <img id="overlay-plot" src="figs/whiteboard_overlay.png"
+             alt="Audio loudness vs measured contact force — whiteboard wiping." />
+        <figcaption class="muted">Orange bars · audio loudness (desired force). Red line · measured contact force during execution.</figcaption>
+      </figure>
+    </section>
+
+    <!-- 3. ABSTRACT (editorial) ============================== -->
     <section class="abstract section section--divided reveal" id="abstract">
       <p class="kicker">Abstract</p>
       <h2>Audio is the force signal video can't see.</h2>
@@ -170,152 +256,6 @@
       <img src="figs/pipeline.png" alt="Pipeline diagram: vision branch segments, tracks, and estimates force direction; audio branch extracts loudness; the combined force-aware trajectory runs on a Franka Panda with closed-loop force regulation." />
     </section>
 
-    <!-- 4. TASK RESULTS (editorial sections) ================= -->
-    <section class="section section--divided reveal" id="results">
-      <div class="section-heading">
-        <div>
-          <p class="kicker">Experiments</p>
-          <h2>Three contact-rich tasks.</h2>
-        </div>
-      </div>
-
-      <div class="results">
-
-        <!-- Whiteboard wiping ............................... -->
-        <article class="task task--whiteboard">
-          <div class="row row--task">
-            <div class="task__meta">
-              <div class="task__head">
-                <span class="task__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                    <path d="M3 8 Q 8 6, 13 8 T 21 8"/>
-                    <path d="M3 13 Q 8 11, 13 13 T 21 13" opacity=".7"/>
-                    <path d="M3 18 Q 8 16, 13 18 T 21 18" opacity=".4"/>
-                  </svg>
-                </span>
-                <div>
-                  <p class="kicker" style="margin:0">Task 1</p>
-                  <h3>Whiteboard wiping</h3>
-                </div>
-              </div>
-              <p class="muted">Sustained downward pressure while translating laterally.</p>
-              <div class="score">
-                <span class="score__pill score__pill--ours num">6 / 6 ours</span>
-                <span class="score__pill score__pill--base num">0 / 6 base</span>
-              </div>
-              <img class="task__plot" src="figs/whiteboard_overlay.png"
-                   alt="Audio loudness (orange bars) and measured contact force (red line) during whiteboard wiping." />
-            </div>
-            <div class="task__videos">
-              <figure>
-                <figcaption>Ours · force-aware</figcaption>
-                <div class="video-placeholder" role="img" aria-label="Video coming soon: robot wiping a whiteboard with force regulation.">
-                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10,8 17,12 10,16" fill="currentColor" stroke="none"/></svg>
-                  <span>Coming soon</span>
-                </div>
-              </figure>
-              <figure>
-                <figcaption>Baseline · kinematic only</figcaption>
-                <div class="video-placeholder" role="img" aria-label="Video coming soon: baseline attempt that fails to apply wiping force.">
-                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10,8 17,12 10,16" fill="currentColor" stroke="none"/></svg>
-                  <span>Coming soon</span>
-                </div>
-              </figure>
-            </div>
-          </div>
-        </article>
-
-        <!-- Carrot peeling .................................. -->
-        <article class="task task--carrot">
-          <div class="row row--task">
-            <div class="task__meta">
-              <div class="task__head">
-                <span class="task__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M5 19 L13 6 L17 10 Z"/>
-                    <path d="M17 5 Q 20 2, 22 5"/>
-                    <path d="M8 13 Q 4 14, 3 18" opacity=".6"/>
-                  </svg>
-                </span>
-                <div>
-                  <p class="kicker" style="margin:0">Task 2</p>
-                  <h3>Carrot peeling</h3>
-                </div>
-              </div>
-              <p class="muted">Sustained normal force against a curved surface during drag.</p>
-              <div class="score">
-                <span class="score__pill score__pill--ours num">5 / 6 ours</span>
-                <span class="score__pill score__pill--base num">1 / 6 base</span>
-              </div>
-              <img class="task__plot" src="figs/carrot_overlay.png"
-                   alt="Audio loudness (orange) ramps up as the peeler engages; measured force (red) tracks it." />
-            </div>
-            <div class="task__videos">
-              <figure>
-                <figcaption>Ours · force-aware</figcaption>
-                <div class="video-placeholder" role="img" aria-label="Video coming soon: robot peeling a carrot with force regulation.">
-                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10,8 17,12 10,16" fill="currentColor" stroke="none"/></svg>
-                  <span>Coming soon</span>
-                </div>
-              </figure>
-              <figure>
-                <figcaption>Baseline · kinematic only</figcaption>
-                <div class="video-placeholder" role="img" aria-label="Video coming soon: baseline attempt at peeling with inconsistent contact.">
-                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10,8 17,12 10,16" fill="currentColor" stroke="none"/></svg>
-                  <span>Coming soon</span>
-                </div>
-              </figure>
-            </div>
-          </div>
-        </article>
-
-        <!-- Lamp button pressing ............................ -->
-        <article class="task task--lamp">
-          <div class="row row--task">
-            <div class="task__meta">
-              <div class="task__head">
-                <span class="task__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                    <path d="M12 3 C 7 3, 6 10, 10 13 L10 16 H14 V13 C 18 10, 17 3, 12 3Z"/>
-                    <line x1="10" y1="18" x2="14" y2="18"/>
-                    <line x1="11" y1="20" x2="13" y2="20"/>
-                    <line x1="4"  y1="4"  x2="2"  y2="6" opacity=".5"/>
-                    <line x1="20" y1="4"  x2="22" y2="6" opacity=".5"/>
-                  </svg>
-                </span>
-                <div>
-                  <p class="kicker" style="margin:0">Task 3</p>
-                  <h3>Lamp button pressing</h3>
-                </div>
-              </div>
-              <p class="muted">Impulsive force to overcome a spring-loaded button.</p>
-              <div class="score">
-                <span class="score__pill score__pill--ours num">4 / 6 ours</span>
-                <span class="score__pill score__pill--base num">0 / 6 base</span>
-              </div>
-              <img class="task__plot" src="figs/lamp_overlay.png"
-                   alt="A sharp audio peak at contact; measured force shows the impulsive push." />
-            </div>
-            <div class="task__videos">
-              <figure>
-                <figcaption>Ours · force-aware</figcaption>
-                <div class="video-placeholder" role="img" aria-label="Video coming soon: robot pressing a lamp button with impulsive force.">
-                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10,8 17,12 10,16" fill="currentColor" stroke="none"/></svg>
-                  <span>Coming soon</span>
-                </div>
-              </figure>
-              <figure>
-                <figcaption>Baseline · kinematic only</figcaption>
-                <div class="video-placeholder" role="img" aria-label="Video coming soon: baseline attempt that fails to depress the button.">
-                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10,8 17,12 10,16" fill="currentColor" stroke="none"/></svg>
-                  <span>Coming soon</span>
-                </div>
-              </figure>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
 
     <!-- 5. BIBTEX (full-width code card) ===================== -->
     <section class="card card--bibtex bibtex section--divided reveal" id="cite">
