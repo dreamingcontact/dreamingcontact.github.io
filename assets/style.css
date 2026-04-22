@@ -168,7 +168,15 @@ a:hover { text-decoration: underline; }
 }
 .btn--ghost:hover { box-shadow: 0 10px 24px rgba(26,20,32,.08); color: var(--ink); background: #fff; }
 .btn--ghost .btn__arrow { background: #f3eef9; color: var(--ink); }
-.btn--inactive { opacity: .55; cursor: not-allowed; pointer-events: none; }
+.btn--inactive { opacity: .65; cursor: not-allowed; pointer-events: none; }
+.btn__tag {
+  display: inline-block;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 999px;
+  background: rgba(26,20,32,.08);
+  color: var(--ink-muted);
+}
 
 /* Grid helpers ------------------------------------------ */
 .row { display: grid; gap: var(--gap-sm); }
