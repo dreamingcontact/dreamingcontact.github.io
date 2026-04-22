@@ -38,7 +38,7 @@
   const exVideos   = Object.fromEntries(vidKinds.map(k => [k, document.getElementById('v-' + k)]));
 
   // Bump MEDIA_REV whenever videos or posters are rebuilt so caches invalidate.
-  const MEDIA_REV = '3';
+  const MEDIA_REV = '4';
   let currentTask = 'whiteboard';
   let currentRun  = 1;
 
@@ -56,7 +56,6 @@
         el.load();
         el.muted = true;
       }
-      el.playbackRate = (kind === 'ours' || kind === 'base') ? 2 : 1;
     });
     if (oursPill) oursPill.textContent = `${t.success.ours} / ${t.success.total} ours`;
     if (basePill) basePill.textContent = `${t.success.base} / ${t.success.total} base`;
@@ -86,7 +85,7 @@
   // Explorer videos all loop muted in parallel so the user sees the
   // comparison side-by-side. When the user unmutes one, re-mute the others
   // so the contact audio is clearly attributable to a single clip.
-  Object.entries(exVideos).forEach(([kind, el]) => {
+  Object.values(exVideos).forEach(el => {
     if (!el) return;
     el.addEventListener('volumechange', () => {
       if (!el.muted) {
@@ -95,9 +94,6 @@
         });
       }
     });
-    // Reapply playback rate once metadata is ready (browsers reset it on load).
-    const rate = (kind === 'ours' || kind === 'base') ? 2 : 1;
-    el.addEventListener('loadedmetadata', () => { el.playbackRate = rate; });
   });
 
   // Autoplay explorer videos (muted) when the explorer section is in view.
