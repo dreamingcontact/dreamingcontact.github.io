@@ -106,7 +106,7 @@
           <h1>Dreaming the Sound of&nbsp;Contact</h1>
           <p class="hero__subtitle">Leveraging video and audio generation for zero-shot force-aware manipulation.</p>
           <p class="hero__authors">
-            Video for motion, audio for force.
+            <!-- TODO: fill author list + affiliations -->
           </p>
           <div class="btn-row">
             <a class="btn" href="paper/dreaming-the-sound-of-contact.pdf">
@@ -138,7 +138,7 @@
     <section class="explorer section section--divided reveal" id="results">
       <div class="explorer__head">
         <p class="kicker">Experiments</p>
-        <h2>Audio as the force signal.</h2>
+        <h2>Video for motion, audio for force.</h2>
         <p class="muted">
           Pick a task and a run. Each row plays the <strong>generated</strong> reference video + audio (the prompt), our <strong>force-aware</strong> execution on a Franka arm that tracks the audio-derived force profile, and a <strong>kinematic-only baseline</strong> for comparison.
           <span class="sound-hint"><span class="sound-hint__icon" aria-hidden="true">🔊</span>Turn the sound on — the contact audio <em>is</em> the force signal.</span>
@@ -259,7 +259,7 @@
     <!-- 3. PIPELINE (iridescent aurora card) ================= -->
     <section class="card card--aurora pipeline reveal" id="pipeline">
       <p class="kicker">Pipeline</p>
-      <h2>Video for motion, audio for force.</h2>
+      <h2>Audio as the force signal.</h2>
       <p>
         Our vision pipeline segments objects (SAM&nbsp;2), estimates depth (Depth&nbsp;Pro), and tracks 3D points
         (SpaTracker) to detect contacts and infer force directions. The audio pipeline extracts loudness as a
