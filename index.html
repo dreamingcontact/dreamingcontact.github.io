@@ -125,7 +125,7 @@
 
         <!-- Concept figure on transparent background, no card treatment. -->
         <div class="hero__visual">
-          <img src="figs/concept.png?v=4"
+          <img src="figs/concept.png?v=5"
                alt="Concept overview: three stacked panels showing generated video and audio, a robot contact point on a whiteboard with force-direction and audio-magnitude annotations, and three real-world execution tasks — wiping, peeling, and lamp pressing."/>
         </div>
       </div>
@@ -188,11 +188,11 @@
             <span class="vdesc">Video + Audio from Seedance 2.0</span>
           </figcaption>
           <video id="v-gen" data-kind="gen"
-                 src="videos/whiteboard_run1_gen.mp4?v=4"
-                 poster="videos/whiteboard_run1_gen.jpg?v=4"
+                 src="videos/whiteboard_run1_gen.mp4?v=5"
+                 poster="videos/whiteboard_run1_gen.jpg?v=5"
                  loop playsinline preload="metadata" controls muted></video>
           <div class="ours-plot">
-            <img id="audio-plot" src="figs/whiteboard_run1_audio.png?v=4"
+            <img id="audio-plot" src="figs/whiteboard_run1_audio.png?v=5"
                  alt="Audio loudness over time — whiteboard, run 1." />
           </div>
         </figure>
@@ -203,13 +203,13 @@
           </figcaption>
           <div class="video-wrap">
             <video id="v-ours" data-kind="ours"
-                   src="videos/whiteboard_run1_ours.mp4?v=4"
-                   poster="videos/whiteboard_run1_ours.jpg?v=4"
+                   src="videos/whiteboard_run1_ours.mp4?v=5"
+                   poster="videos/whiteboard_run1_ours.jpg?v=5"
                    loop playsinline preload="metadata" controls muted></video>
             <span class="video-badge">2×</span>
           </div>
           <div class="ours-plot">
-            <img id="force-plot" src="figs/whiteboard_run1_force.png?v=4"
+            <img id="force-plot" src="figs/whiteboard_run1_force.png?v=5"
                  alt="Measured contact force over time — whiteboard, run 1." />
           </div>
         </figure>
@@ -220,8 +220,8 @@
           </figcaption>
           <div class="video-wrap">
             <video id="v-base" data-kind="base"
-                   src="videos/whiteboard_run1_base.mp4?v=4"
-                   poster="videos/whiteboard_run1_base.jpg?v=4"
+                   src="videos/whiteboard_run1_base.mp4?v=5"
+                   poster="videos/whiteboard_run1_base.jpg?v=5"
                    loop playsinline preload="metadata" controls muted></video>
             <span class="video-badge">2×</span>
           </div>
@@ -262,7 +262,7 @@
         (SpaTracker) to detect contacts and infer force directions. The audio pipeline extracts loudness as a
         force-magnitude proxy. A 1&nbsp;kHz impedance controller closes the loop on the audio-derived force profile.
       </p>
-      <img src="figs/pipeline.png?v=4" alt="Pipeline diagram: vision branch segments, tracks, and estimates force direction; audio branch extracts loudness; the combined force-aware trajectory runs on a Franka Panda with closed-loop force regulation." />
+      <img src="figs/pipeline.png?v=5" alt="Pipeline diagram: vision branch segments, tracks, and estimates force direction; audio branch extracts loudness; the combined force-aware trajectory runs on a Franka Panda with closed-loop force regulation." />
     </section>
 
 

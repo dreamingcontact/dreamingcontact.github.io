@@ -38,7 +38,7 @@
   const exVideos   = Object.fromEntries(vidKinds.map(k => [k, document.getElementById('v-' + k)]));
 
   // Bump MEDIA_REV whenever videos or posters are rebuilt so caches invalidate.
-  const MEDIA_REV = '4';
+  const MEDIA_REV = '5';
   let currentTask = 'whiteboard';
   let currentRun  = 1;
 
