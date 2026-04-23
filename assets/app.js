@@ -118,6 +118,25 @@
     }
   }
 
+  // --- toast --------------------------------------------
+  const toast = document.getElementById('toast');
+  function showToast(msg, ms = 2200) {
+    if (!toast) return;
+    toast.textContent = msg;
+    toast.classList.add('is-visible');
+    clearTimeout(toast.__t);
+    toast.__t = setTimeout(() => toast.classList.remove('is-visible'), ms);
+  }
+
+  // Paper button: show "Coming Soon!" toast instead of opening the PDF.
+  const paperBtn = document.getElementById('paper-btn');
+  if (paperBtn) {
+    paperBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      showToast('Coming Soon!');
+    });
+  }
+
   // --- copy bibtex ---------------------------------------
   const copyBtn = document.getElementById('copy-bib');
   const bib     = document.getElementById('bib');

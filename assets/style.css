@@ -609,6 +609,29 @@ code, pre, .mono {
   border-top: var(--hairline);
 }
 
+/* Toast notification ------------------------------------ */
+.toast {
+  position: fixed;
+  top: 28px; left: 50%;
+  transform: translate(-50%, -16px);
+  padding: 11px 20px;
+  border-radius: 999px;
+  background: var(--grad-cta);
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: .02em;
+  box-shadow: 0 18px 40px rgba(110,123,255,.32);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 100;
+  transition: opacity .28s ease, transform .28s ease;
+}
+.toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
 /* Scroll-reveal ----------------------------------------- */
 .reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s ease-out, transform .7s ease-out; }
 .reveal.is-visible { opacity: 1; transform: none; }
